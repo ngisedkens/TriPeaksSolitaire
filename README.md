@@ -13,6 +13,6 @@ API - playing card API?
 indeed or simply hired API for finding job listings, then google maps api to plot them on a map
 
 
-## Idea 3 - 
+## Idea 3 - DataVis
 
 some sort of data visualization - using an API for data retrieval of some sort then use keen.io or google dev charts to plot it
