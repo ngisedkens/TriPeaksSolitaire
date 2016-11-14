@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+}
+.headerBox {
+    width: 100%;
+}
+.header {
+    margin: 0;
+    padding: 0;
+    border: 4px outset gainsboro;
+    width: auto;
+    height: 10vh;
+    background-color: teal;
+    display: flex;
+    justify-content: space-between;
+    font-size: 26px;
+}
+.left {
+    margin: auto 2%;
+    padding: 0;
+    width: 15%;
+    height: auto;
+    text-align: left;
+}
+.mid {
+    margin: auto 2%;
+    padding: 0;
+    width: 40%;
+    height: auto;
+    text-align: center;
+    font-size: 38px;
+}
+.right {
+    margin: auto 2%;
+    padding: 0;
+    width: 15%;
+    height: auto;
+    text-align: right;
+}
