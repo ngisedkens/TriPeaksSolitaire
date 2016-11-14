@@ -63,7 +63,7 @@ body {
 
 .board {
     width: 100%;
-    height: 89vh;
+    height: 88vh;
     background-color: #0D6AD2;
 }
 
@@ -74,18 +74,20 @@ body {
 }
 
 .card {
-    max-height: 175px;
-    max-width: 100px;
+    max-height: 17.5vh;
+    max-width: 10.0vw;
 }
 
 .pyramids {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .leftPyramid {}
 
-.midPyramid {}
+.midPyramid {
+    margin: 0 4px;
+}
 
 .rightPyramid {}
 
@@ -104,7 +106,6 @@ body {
     justify-content: center;
     z-index: 1;
     margin-top: -20%;
-
 }
 
 .thirdTier {
@@ -112,7 +113,11 @@ body {
     justify-content: center;
     z-index: 2;
     margin-top: -20%;
-
 }
 
-.fourthTier {}
+.fourthTier {
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    margin-top: -5%;
+}
