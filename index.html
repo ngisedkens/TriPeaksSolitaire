@@ -6,18 +6,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TriPeaks Solitaire</title>
+
+    <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Custom font -->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+
+    <!-- My styling -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="icon" href="./images/favicon.ico">
+
+    <!-- Javascript game logic file -->
+    <script src="game.js"></script>
+
+
 </head>
 
 <body>
     <div class="headerBox">
         <div class="header">
-            <div class="left">Reset</div>
-            <div class="mid">TriPeaks Solitaire</div>
-            <div class="right">New Hand</div>
+            <div class="leftHead">Reset</div>
+            <div class="midHead">TriPeaks Solitaire</div>
+            <div class="rightHead">New Hand</div>
         </div>
     </div>
+    <div class="board">
+        <div class="cardStage">
+            <div class="pyramids">
+                <div class="leftPyramid">
+                    <div class="firstTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                    <div class="secondTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                    <div class="thirdTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                </div>
+                <div class="midPyramid">
+                    <div class="firstTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                    <div class="secondTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                    <div class="thirdTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                </div>
+                <div class="rightPyramid">
+                    <div class="firstTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                    <div class="secondTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                    <div class="thirdTier">
+                        <div class="cardBox">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                            <img class="card" src="images/cardBack.png" alt="Back of playing card">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fourthTier">
+
+            </div>
+        </div>
+        <div class="stockPile">
+
+        </div>
+    </div>
+
+
 </body>
 
 </html>
