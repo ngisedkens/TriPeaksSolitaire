@@ -68,9 +68,9 @@ body {
 }
 
 .cardStage {
-    padding: 2vw;
-    width: 96vw;
-    max-height: 50vh;
+    padding: 2%;
+    width: 96%;
+    max-height: 50%;
 }
 
 .card {
@@ -126,18 +126,28 @@ body {
     margin-top: -4%;
 }
 
-.cardBoxBot {
+.cardBoxpile {
     display: flex;
-    justify-content: left;
-    margin-top: 8vh;
+    /*justify-content: left;*/
+    margin-top: 8%;
+    width: 60%;
 }
 
-.cardBoxPlay {
-    /*display: flex;*/
-    margin-top: 8vh;
+.cardBoxplay {
+    margin-top: 8%;
+    z-index: 2;
 }
 
 .stockPile {
     display: flex;
     justify-content: space-between;
+    z-index: 1;
+}
+
+.pile {
+    margin-left: -15%;
+}
+
+.cardDiv {
+    width: 100%;
 }
