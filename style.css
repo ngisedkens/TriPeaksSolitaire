@@ -31,7 +31,7 @@ body {
     text-shadow: 0.5px 0.5px 0.5px black;
 }
 
-.left:hover {
+.leftHead:hover {
     cursor: pointer;
     text-shadow: 1px 1px 1px darkgrey;
 }
@@ -56,7 +56,7 @@ body {
     text-shadow: 0.5px 0.5px 0.5px black;
 }
 
-.right:hover {
+.rightHead:hover {
     cursor: pointer;
     text-shadow: 1px 1px 1px darkgrey;
 }
@@ -68,14 +68,17 @@ body {
 }
 
 .cardStage {
-    padding: 5%;
-    width: 90%;
-    height: 60%;
+    padding: 2vw;
+    width: 96vw;
+    max-height: 50vh;
 }
 
 .card {
+    display: block;
     max-height: 17.5vh;
     max-width: 10.0vw;
+    width: auto;
+    height: auto;
 }
 
 .pyramids {
@@ -86,19 +89,20 @@ body {
 .leftPyramid {}
 
 .midPyramid {
-    margin: 0 4px;
+    /*margin: 0 0.25vw;*/
 }
 
 .rightPyramid {}
+
+.cardBox {
+    display: flex;
+    justify-content: center;
+}
 
 .firstTier {
     display: flex;
     justify-content: center;
     z-index: 0;
-}
-
-.cardBox {
-
 }
 
 .secondTier {
@@ -119,5 +123,21 @@ body {
     display: flex;
     justify-content: center;
     z-index: 3;
-    margin-top: -5%;
+    margin-top: -4%;
+}
+
+.cardBoxBot {
+    display: flex;
+    justify-content: left;
+    margin-top: 8vh;
+}
+
+.cardBoxPlay {
+    /*display: flex;*/
+    margin-top: 8vh;
+}
+
+.stockPile {
+    display: flex;
+    justify-content: space-between;
 }
