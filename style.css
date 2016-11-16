@@ -88,9 +88,7 @@ body {
 
 .leftPyramid {}
 
-.midPyramid {
-    /*margin: 0 0.25vw;*/
-}
+.midPyramid {}
 
 .rightPyramid {}
 
@@ -150,4 +148,8 @@ body {
 
 .cardDiv {
     width: 100%;
+}
+
+.invis {
+    visibility: hidden;
 }
