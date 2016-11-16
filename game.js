@@ -1,12 +1,14 @@
 $(document).ready(function() {
 
     // IMPORTANT NOTES:
+    // * for some reason adblock plugin will cause bugs
     // * first tier is the top tier (3 total cards)
     // * fourth tier is the base of the pyramids
     // * two sources of truth for card data at the moment currentBoard and deck
-    // * Alt text doesn't current change on flipping
+    // * Alt text doesn't currently change on flipping
     // TODO: incorporate image changing on addToPlay function
     // TODO: currently flipcheck doesnt keep track of cards that have already been flipped
+    // TODO: fix reset button functionality
 
     let deckID = null;
     let currentBoard = null;
@@ -15,9 +17,9 @@ $(document).ready(function() {
     $('#newHand').click(newHand);
     $('.cardBox').on('click', cardClick);
     $('.cardBoxpile').on('click', pileClick);
+    $('#reset').click(resetHand); // doesnt work
 
 
-    // pseudoclassical GameBoard 'class'
     function GameBoard(firstTier, secondTier, thirdTier, fourthTier, pile, play) {
         this.firstTier = firstTier || [];
         this.secondTier = secondTier || [];
@@ -51,7 +53,6 @@ $(document).ready(function() {
             // assign the new topPileCard
             topPileCard = currentBoard.pile[currentBoard.pile.length - 1].code;
             deck[topPileCard].inPlay = true;
-            console.log(deck[topPileCard]);
         }
     }
 
@@ -62,7 +63,6 @@ $(document).ready(function() {
         let targetTier = e.target.alt.split(' ')[0]
 
         if (deck[targetCard].inPlay) {
-            console.log('card is in play!');
             // targetCard at 0 because suit doesnt matter in this game ex: 6D = 6 of diamonds
             if (validMove(targetCard[0])) {
                 // replace image on play pile
@@ -80,9 +80,14 @@ $(document).ready(function() {
                     }
                 }
             }
+            victoryCheck();
         } else {
             console.log('card is not in play');
         }
+    }
+
+    function victoryCheck() {
+        console.log(currentBoard);
     }
 
     function turnCardOver(index, tier) {
@@ -184,6 +189,11 @@ $(document).ready(function() {
             console.log('invalid move for inplay card: ', currentBoard.play[currentBoard.play.length - 1].code[0]);
             return false;
         }
+    }
+
+    function resetHand() {
+        clearStage();
+        retrieveDeck();
     }
 
     function newHand() {
@@ -297,8 +307,19 @@ $(document).ready(function() {
             url: `https://deckofcardsapi.com/api/deck/${deckID}/shuffle/`,
             method: 'GET',
             success: function(data) {
-                console.log('shuffled: ', deckID);
                 populateBoard();
+            },
+            error: errorMsg
+        })
+    }
+
+    function retrieveDeck() {
+        $.ajax({
+            url: `https://deckofcardsapi.com/api/deck/${deckID}/`,
+            method: 'GET',
+            success: function(data) {
+                populateBoard();
+                console.log(data);
             },
             error: errorMsg
         })
@@ -318,11 +339,12 @@ $(document).ready(function() {
 
     // creates a new GameBoard and fills it with API data along with custom properties and methods
     // also adds all those new card objects to a deck object
-    function populateBoard(num) {
+    function populateBoard() {
         $.ajax({
             url: `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=52`,
             method: 'GET',
             success: function(data) {
+
                 currentBoard = new GameBoard();
 
                 // adds flip to each card object, cant get prototype thing to work
@@ -390,12 +412,10 @@ $(document).ready(function() {
                 }
                 // set top card on pile to be in play
                 currentBoard.pile[currentBoard.pile.length-1].inPlay = true;
-                console.log('Successfully populated new currentBoard:', currentBoard);
                 deck = data.cards.reduce(function(result, element) {
                     result[element.code] = element;
                     return result;
                 }, {});
-                console.log('Reduced deck object: ', deck);
                 uncover(currentBoard);
 
             },
