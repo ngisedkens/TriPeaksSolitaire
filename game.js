@@ -278,6 +278,7 @@ $(document).ready(function() {
                     }
                     if (i === 2 || i === 5) {
                         flipItem.flipNeeded = false;
+                        flipItem.flipIndex = null;
                     }
                     flipInfo.push(flipItem);
                 }
