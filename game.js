@@ -6,6 +6,7 @@ $(document).ready(function() {
     // * fourth tier is the base of the pyramids
     // * two sources of truth for card data at the moment currentBoard and deck
     // * Alt text doesn't currently change on flipping
+    // * how to set up data so that theres one source of truth and site is generated from that
     // TODO: incorporate image changing on addToPlay function
     // TODO: currently flipcheck doesnt keep track of cards that have already been flipped
     // TODO: fix reset button functionality
@@ -13,12 +14,17 @@ $(document).ready(function() {
     let deckID = null;
     let currentBoard = null;
     let deck = null;
+    let currentScore = 0;
+    let scoreStreak = 0;
+    let leftPyramidFinished = false;
+    let midPyramidFinished = false;
+    let rightPyramidFinished = false;
+
 
     $('#newHand').click(newHand);
     $('.cardBox').on('click', cardClick);
     $('.cardBoxpile').on('click', pileClick);
-    $('#reset').click(resetHand); // doesnt work
-
+    $('#reset').click(resetHand); // TODO: doesnt work yet
 
     function GameBoard(firstTier, secondTier, thirdTier, fourthTier, pile, play) {
         this.firstTier = firstTier || [];
@@ -39,6 +45,149 @@ $(document).ready(function() {
         }
     }
 
+    // ugly and useless :D
+    function retrieveTargetPyramid(targetCard, tier) {
+        // set variable for pyramid(s) targetCard is located in
+        let targetPyramid = null;
+        let indexOfCurrentTier = null;
+        for (var i = 0; i < currentBoard[tier].length; i++) {
+            if (targetCard === currentBoard[tier][i].code) {
+                indexOfCurrentTier = i;
+            }
+        }
+        switch (tier) {
+            case 'firstTier':
+                switch (indexOfCurrentTier) {
+                    case 0:
+                        targetPyramid = 'first';
+                        break;
+                    case 1:
+                        targetPyramid = 'second';
+                        break;
+                    case 2:
+                        targetPyramid = 'third';
+                        break;
+                };
+                break;
+            case 'secondTier':
+                switch (indexOfCurrentTier) {
+                    case 0:
+                    case 1:
+                        targetPyramid = 'first';
+                        break;
+                    case 2:
+                    case 3:
+                        targetPyramid = 'second';
+                        break;
+                    case 4:
+                    case 5:
+                        targetPyramid = 'third';
+                        break;
+                };
+                break;
+            case 'thirdTier':
+                switch (indexOfCurrentTier) {
+                    case 0:
+                    case 1:
+                    case 2:
+                        targetPyramid = 'first';
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        targetPyramid = 'second';
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                        targetPyramid = 'third';
+                        break;
+                };
+                break;
+            case 'fourthTier':
+                switch (indexOfCurrentTier) {
+                    case 0:
+                    case 1:
+                    case 2:
+                        targetPyramid = 'first';
+                        break;
+                    case 3:
+                        targetPyramid = 'first and second';
+                        break;
+                    case 4:
+                    case 5:
+                        targetPyramid = 'second';
+                        break;
+                    case 6:
+                        targetPyramid = 'second and third';
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                        console.log('hello');
+                        targetPyramid: 'third';
+                        break;
+                };
+                break;
+        };
+        return targetPyramid;
+    };
+
+    function scoreMultVictoryCheck() {
+        for (var i = 0; i < currentBoard['firstTier'].length; i++) {
+            console.log(currentBoard['firstTier'][0].addedToPlayPile);
+            if (currentBoard['firstTier'][0].addedToPlayPile) {
+                switch (i) {
+                    case 0:
+                        if (!leftPyramidFinished) {
+                            currentScore += 15;
+                            leftPyramidFinished = true;
+                        };
+                        break;
+                    case 1:
+                        if (!midPyramidFinished) {
+                            currentScore += 15;
+                            midPyramidFinished = true;
+                        };
+                        break;
+                    case 2:
+                        if (!rightPyramidFinished) {
+                            currentScore += 15;
+                            rightPyramidFinished = true;
+                        };
+                        break;
+                };
+            }
+        };
+        if (leftPyramidFinished && midPyramidFinished && rightPyramidFinished) {
+            currentScore += 15;
+            setTimeout(function(){ alert(`You won with a score of ${currentScore}!! Try resetting to see if you can do better!`); }, 3000);
+        }
+
+    };
+
+    function resetScore() {
+        currentScore = 0;
+        refreshScore();
+    }
+
+    function calculateAddScore(targetCard, tier) {
+        scoreStreak++;
+        currentScore += scoreStreak;
+        scoreMultVictoryCheck();
+        refreshScore();
+    }
+
+    function calculatePileScore() {
+        scoreStreak = 0;
+        currentScore = currentScore - 5;
+        refreshScore();
+    }
+
+    function refreshScore() {
+        $('#scoreSpan').text(currentScore)
+    }
+
     function log(e) {
         console.log(e.target);
     }
@@ -47,6 +196,7 @@ $(document).ready(function() {
         console.log(e.target);
         let topPileCard = currentBoard.pile[currentBoard.pile.length - 1].code;
         if (deck[topPileCard].inPlay) {
+            calculatePileScore();
             renderCardMove(topPileCard);
             turnCardOver(currentBoard.pile.length - 1, 'pile');
             currentBoard.play.push(currentBoard.pile.pop());
@@ -57,8 +207,6 @@ $(document).ready(function() {
     }
 
     function cardClick(e) {
-        console.log(e.target);
-
         let targetCard = e.target.id;
         let targetTier = e.target.alt.split(' ')[0]
 
@@ -68,26 +216,23 @@ $(document).ready(function() {
                 // replace image on play pile
                 renderCardMove(targetCard);
 
+                // update score
+                calculateAddScore(targetCard, targetTier);
+
                 // handling targetCard status in both truth objects
                 currentBoard.refresh(targetCard, targetTier)
 
                 // if flipInfo.flipNeeded === true, then flip(flipIndex/targetCard, flipTier)
                 let flipInfo = flipCheck(targetCard, targetTier);
-                console.log(flipInfo);
                 if (flipInfo.length > 0) {
                     for (var i = 0; i < flipInfo.length; i++) {
                         turnCardOver(flipInfo[i].flipIndex, flipInfo[i].flipTier);
                     }
                 }
             }
-            victoryCheck();
         } else {
             console.log('card is not in play');
         }
-    }
-
-    function victoryCheck() {
-        console.log(currentBoard);
     }
 
     function turnCardOver(index, tier) {
@@ -198,6 +343,7 @@ $(document).ready(function() {
 
     function newHand() {
         clearStage();
+        resetScore();
         if (deckID !== null) {
             shuffle();
         } else {
@@ -411,7 +557,7 @@ $(document).ready(function() {
                     currentBoard.pile.push(data.cards[i])
                 }
                 // set top card on pile to be in play
-                currentBoard.pile[currentBoard.pile.length-1].inPlay = true;
+                currentBoard.pile[currentBoard.pile.length - 1].inPlay = true;
                 deck = data.cards.reduce(function(result, element) {
                     result[element.code] = element;
                     return result;

@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    font-family: 'Varela Round', sans-serif;
+
 }
 
 .headerBox {
@@ -9,16 +11,15 @@ body {
 .header {
     margin: 0;
     padding: 0;
-    border: 4px inset linen;
+    border: 4px inset #46303a;
     width: auto;
-    height: 10vh;
-    background-color: #d2750d;
+    height: 11vh;
+    background-color: #7E6B8F;
     display: flex;
     justify-content: space-between;
     font-size: 2vw;
-    font-family: 'Varela Round', sans-serif;
     text-align: center;
-    color: #0D6AD2;
+    color: #A3D9FF;
 }
 
 .leftHead {
@@ -29,6 +30,7 @@ body {
     width: 10%;
     height: auto;
     text-shadow: 0.5px 0.5px 0.5px black;
+    background-color: #845A6D;
 }
 
 .leftHead:hover {
@@ -42,7 +44,7 @@ body {
     width: 50%;
     height: auto;
     font-size: 5vw;
-    color: #0D6AD2;
+    color: #A3D9FF;
     text-shadow: 1.5px 1.5px 3px black;
 }
 
@@ -54,6 +56,7 @@ body {
     width: 15%;
     height: auto;
     text-shadow: 0.5px 0.5px 0.5px black;
+    background-color: #845A6D;
 }
 
 .rightHead:hover {
@@ -68,7 +71,7 @@ body {
 }
 
 .cardStage {
-    padding: 2%;
+    padding: 4% 2% 2% 2%;
     width: 96%;
     max-height: 50%;
 }
@@ -129,6 +132,7 @@ body {
     /*justify-content: left;*/
     margin-top: 8%;
     width: 60%;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .cardBoxplay {
@@ -144,6 +148,7 @@ body {
 
 .pile {
     margin-left: -15%;
+    cursor: pointer;
 }
 
 .cardDiv {
@@ -152,4 +157,32 @@ body {
 
 .invis {
     visibility: hidden;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.stickyFooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.score {
+    margin-left: 70%;
+    left: 0;
+    right: 0;
+    background-color: #7E6B8F;
+    border-top: 4px inset #46303a;
+    border-left: 4px inset #46303a;
+    border-right: 4px inset #46303a;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #A3D9FF;
+    text-shadow: 0.5px 0.5px 0.5px black;
+    width: 15%;
+    padding: 0.5%;
+    font-size: 2vw;
 }
