@@ -19,6 +19,7 @@ $(document).ready(function() {
     let leftPyramidFinished = false;
     let midPyramidFinished = false;
     let rightPyramidFinished = false;
+    let boardCopy = null;
 
 
     $('#newHand').click(newHand);
@@ -161,13 +162,16 @@ $(document).ready(function() {
         };
         if (leftPyramidFinished && midPyramidFinished && rightPyramidFinished) {
             currentScore += 15;
-            setTimeout(function(){ alert(`You won with a score of ${currentScore}!! Try resetting to see if you can do better!`); }, 3000);
+            setTimeout(function() {
+                alert(`You won with a score of ${currentScore}!! Try resetting to see if you can do better!`);
+            }, 3000);
         }
 
     };
 
     function resetScore() {
         currentScore = 0;
+        scoreStreak = 0;
         refreshScore();
     }
 
@@ -207,6 +211,7 @@ $(document).ready(function() {
     }
 
     function cardClick(e) {
+
         let targetCard = e.target.id;
         let targetTier = e.target.alt.split(' ')[0]
 
@@ -226,13 +231,18 @@ $(document).ready(function() {
                 let flipInfo = flipCheck(targetCard, targetTier);
                 if (flipInfo.length > 0) {
                     for (var i = 0; i < flipInfo.length; i++) {
-                        turnCardOver(flipInfo[i].flipIndex, flipInfo[i].flipTier);
+                        if (flipInfo[i].flipIndex === null) {
+                            continue;
+                        } else {
+                            turnCardOver(flipInfo[i].flipIndex, flipInfo[i].flipTier);
+                        }
                     }
                 }
             }
         } else {
             console.log('card is not in play');
         }
+        console.log('deck: ', deck);
     }
 
     function turnCardOver(index, tier) {
@@ -309,6 +319,7 @@ $(document).ready(function() {
                 flipInfo.push(flipItem);
             }
         }
+        console.log(flipInfo);
         return flipInfo;
     }
 
@@ -339,7 +350,9 @@ $(document).ready(function() {
 
     function resetHand() {
         clearStage();
-        retrieveDeck();
+        currentBoard = jQuery.extend(true, {}, boardCopy);
+        uncover(currentBoard);
+        resetScore();
     }
 
     function newHand() {
@@ -388,8 +401,8 @@ $(document).ready(function() {
                 let $cardDiv = $('<div></div>');
                 $cardDiv.addClass('cardDiv');
                 $card.addClass('card added')
-                    .attr('id', cardArr[i].code)
-                    .attr('src', cardArr[i]['image'])
+                    .attr('id', cardArr[0].code)
+                    .attr('src', cardArr[0]['image'])
                     .attr('alt', `${tier} Back of playing card`);
                 $cardDiv.append($card);
                 $(`.cardBox${tier}`).append($cardDiv);
@@ -563,6 +576,8 @@ $(document).ready(function() {
                     result[element.code] = element;
                     return result;
                 }, {});
+
+                boardCopy = jQuery.extend(true, {}, currentBoard);
                 uncover(currentBoard);
 
             },
