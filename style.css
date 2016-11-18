@@ -1,7 +1,6 @@
 body {
     margin: 0;
     font-family: 'Varela Round', sans-serif;
-
 }
 
 .headerBox {
@@ -129,10 +128,10 @@ body {
 
 .cardBoxpile {
     display: flex;
-    /*justify-content: left;*/
     margin-top: 8%;
     width: 60%;
     background: rgba(255, 255, 255, 0.5);
+    z-index: 2;
 }
 
 .cardBoxplay {
@@ -168,6 +167,7 @@ body {
     bottom: 0;
     width: 100%;
     text-align: center;
+    z-index: 0;
 }
 
 .score {
