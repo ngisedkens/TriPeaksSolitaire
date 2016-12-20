@@ -9,7 +9,6 @@ $(document).ready(function() {
     // * how to set up data so that theres one source of truth and site is generated from that
     // TODO: incorporate image changing on addToPlay function
     // TODO: currently flipcheck doesnt keep track of cards that have already been flipped
-    // TODO: fix reset button functionality
 
     let deckID = null;
     let currentBoard = null;
@@ -25,7 +24,7 @@ $(document).ready(function() {
     $('#newHand').click(newHand);
     $('.cardBox').on('click', cardClick);
     $('.cardBoxpile').on('click', pileClick);
-    $('#reset').click(resetHand); // TODO: doesnt work yet
+    $('#reset').click(resetHand);
 
     function GameBoard(firstTier, secondTier, thirdTier, fourthTier, pile, play) {
         this.firstTier = firstTier || [];
@@ -125,7 +124,6 @@ $(document).ready(function() {
                     case 7:
                     case 8:
                     case 9:
-                        console.log('hello');
                         targetPyramid: 'third';
                         break;
                 };
@@ -134,6 +132,7 @@ $(document).ready(function() {
         return targetPyramid;
     };
 
+    // scoring functions
     function scoreMultVictoryCheck() {
         for (var i = 0; i < currentBoard['firstTier'].length; i++) {
             console.log(currentBoard['firstTier'][0].addedToPlayPile);
@@ -164,7 +163,7 @@ $(document).ready(function() {
             currentScore += 15;
             setTimeout(function() {
                 alert(`You won with a score of ${currentScore}!! Try resetting to see if you can do better!`);
-            }, 3000);
+            }, 5000);
         }
 
     };
@@ -191,13 +190,13 @@ $(document).ready(function() {
     function refreshScore() {
         $('#scoreSpan').text(currentScore)
         $('#scoreStreakSpan').text(scoreStreak)
-
     }
 
     function log(e) {
         console.log(e.target);
     }
 
+    // click functions
     function pileClick(e) {
         console.log(e.target);
         let topPileCard = currentBoard.pile[currentBoard.pile.length - 1].code;
@@ -247,6 +246,7 @@ $(document).ready(function() {
         console.log('deck: ', deck);
     }
 
+    // game logic functions
     function turnCardOver(index, tier) {
         // don't use flip because it will flip back and forth
         let targetCard = currentBoard[tier][index].code;
@@ -341,7 +341,6 @@ $(document).ready(function() {
         target = target.replace('0', '10');
         inPlay = parseInt(inPlay);
         target = parseInt(target);
-        // TODO: TEST THIS!!
         if (target === inPlay + 1 || target === inPlay - 1 || (target === 1 && inPlay === 13) || (target === 13 && inPlay === 1)) {
             return true;
         } else {
@@ -350,6 +349,7 @@ $(document).ready(function() {
         }
     }
 
+    // new game/reset functions
     function resetHand() {
         clearStage();
         currentBoard = jQuery.extend(true, {}, boardCopy);
@@ -530,17 +530,6 @@ $(document).ready(function() {
                         }
                     }
                 })
-
-                // // TODO: understand prototype access
-                // data.cards.prototype.flip = function() {
-                // let pngCard = this.images.png
-                // let back = './images/cardBack.png';
-                // if (this.image !== back) {
-                //     this.image = back;
-                // } else {
-                //     this.image = pngCard;
-                // }
-                // }
 
                 // sets fourth tier cards in play
                 for (var i = 0; i < 10; i++) {
