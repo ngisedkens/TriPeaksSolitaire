@@ -1,10 +1,8 @@
-# Q1Project
-I want to deploy with firebase because I haven't used it before and I want to use bootstrap for styling because we have mostly dealt with Materialize
+# Q2Project
+
+I want to add a back end and users for my Q1 project, Trippeaks solitaire. I'm also refactoring the data structure so that the game operations can happen more efficiently. 
+
+The users highest score will be stored in a leaderboard.
 
 
-## Game - TriPeaks Solitaire
-
-Implement TriPeaks solitaire with scoring system
-API - playing card API
-
-https://trello.com/b/98xJQDXn/q1tripeaks
+https://trello.com/b/98xJQDXn/q2tripeaks
