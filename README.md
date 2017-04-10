@@ -1,8 +1,11 @@
-# Q2Project
+# TriPeaks Solitaire
 
-I want to add a back end and users for my Q1 project, Trippeaks solitaire. I'm also refactoring the data structure so that the game operations can happen more efficiently. 
+This is my Q2 project at galvanize and it is a refactored, hosted version of my Q1 project.
 
-The users highest score will be stored in a leaderboard.
+Features include:
+-sign up/login with hashed passwords and stored in a postgres database
+-recursion on an edge list to populate card data and game state into a tree structure
+-hosted on heroku at tripeaks.herokuapp.com
 
 
 https://trello.com/b/98xJQDXn/q2tripeaks
