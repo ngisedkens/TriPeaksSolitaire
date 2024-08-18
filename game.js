@@ -177,7 +177,6 @@ $(document).ready(function() {
     function calculateAddScore(targetCard, tier) {
         scoreStreak++;
         currentScore += scoreStreak;
-        scoreMultVictoryCheck();
         refreshScore();
     }
 
@@ -466,7 +465,7 @@ $(document).ready(function() {
     // shuffles current deck instead of calling API for a new one
     function shuffle() {
         $.ajax({
-            url: `https://deckofcardsapi.com/api/deck/${deckID}/shuffle/`,
+            url: `/api/deck/${deckID}/shuffle/`,
             method: 'GET',
             success: function(data) {
                 populateBoard();
@@ -477,7 +476,7 @@ $(document).ready(function() {
 
     function retrieveDeck() {
         $.ajax({
-            url: `https://deckofcardsapi.com/api/deck/${deckID}/`,
+            url: `/api/deck/${deckID}/`,
             method: 'GET',
             success: function(data) {
                 populateBoard();
@@ -489,7 +488,7 @@ $(document).ready(function() {
 
     function newDeck() {
         $.ajax({
-            url: 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',
+            url: '/api/deck/new/shuffle/?deck_count=1',
             method: 'GET',
             success: function(data) {
                 deckID = data['deck_id'];
@@ -503,7 +502,7 @@ $(document).ready(function() {
     // also adds all those new card objects to a deck object
     function populateBoard() {
         $.ajax({
-            url: `https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=52`,
+            url: `/api/deck/${deckID}/draw/?count=52`,
             method: 'GET',
             success: function(data) {
 
